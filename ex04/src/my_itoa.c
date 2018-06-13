@@ -1,27 +1,53 @@
-void reverse(char s[], int begin, int end)
- {
-     int i, j;
-     char c;
-     for (i = begin, j = end; i<j; i++, j--) {
-         c = s[i];
-         s[i] = s[j];
-         s[j] = c;
-     }
- }
 typedef int bool;
 #define true 1
 #define false 0
+#include <stdlib.h>
+#include <string.h>
+#include "stdio.h"
+void reverse(char *s, int beg, int en);
 
-char *my_itoa(int nmb){
-  char *out;
-  bool check = false;
-  int i = 1;
-  if (nmb < 0){ nmb = -nmb; check = true; out[0] = '-'; }
-  for ( i; nmb != 0; ++i){
-    out[i] = nmb % 10;
-    nmb /= 10;
+char *my_itoa( int nmb ){
+  char *out = malloc(12 * sizeof(char *));
+  if ( nmb == 0 )
+  {
+    *(out) = '0';
+    out[1] = '\0';
+    return out;
   }
-  if (check) reverse(out, 1, i);
-  else reverse(out, 0, i - 1);
-  return out;
+  bool negative = false;
+  int i = 0;
+  if (nmb < 0)
+    {
+      nmb = -nmb;
+      negative = true;
+    }
+  for (; nmb != 0; ++i){
+    out[i] = (char)(nmb % 10 + (int)'0');
+    nmb /= 10;
+    //printf("%s\n", out);
+  }
+
+
+  if (negative)
+  {
+    out[i++] = '-';
+   }
+    reverse(out, 0, i - 1);
+    out[i + 1] = '\0';
+    return out;
+}
+
+void reverse(char *s, int beg, int en)
+{
+   char *begin, *end, temp;
+
+   begin  = s + beg;
+   end    = s + en;
+
+   for (; begin <= end ; begin++, end--)
+   {
+      temp   = *end;
+      *end   = *begin;
+      *begin = temp;
+   }
 }
