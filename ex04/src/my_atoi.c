@@ -1,32 +1,34 @@
 #include <stdio.h>
 #include <ctype.h>
 
-unsigned int my_strlen(const char *str){
-    unsigned int i = 0;
+int my_strlen(const char *str){
+    int i = 0;
     for (i = 0; str[i] != '\0'; ++i){
     }
     return i;
  }
 
-int my_atoi (const char *nptr){
+int my_atoi(const char *nptr){
+
   if(!my_strlen(nptr))
     return 0;
 
-  unsigned int res = 0;
+  int res = 0;
   short int negative = 0;
 
   if (nptr[0] == '-')
     negative = 1;
 
-  for (unsigned int i = my_strlen(nptr) - 1; i > 0; --i){
+  for (int i = negative; i < my_strlen(nptr); i++){
     if (isdigit(nptr[i]))
-      res = res * 10 + nptr[i];
+        res = res * 10 + (int)nptr[i] - (int)'0';
     else
-      return 0;
+      break;
   }
 
   if (negative == 1)
-    res = -res;
-
+    res = (-1) * res;
   return res;
+  return 0;
   }
+
