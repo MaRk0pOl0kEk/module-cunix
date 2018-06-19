@@ -48,7 +48,8 @@ int       test_allocation()
 
 void      remove_static(node_t *node)
 {
-  NULL;
+  free(node->key);
+  free(node->data);
 }
 
 int       test_prototyping()
