@@ -36,18 +36,18 @@ node_t *insert(node_t *root, char *key, void *data)
 
   while (!is_insert)
   {
-  if(iterator->left == NULL)
-  {
-    iterator->left = insert_node;
-    is_insert = 1;
-  }
-  else if(iterator->right == NULL)
+  if(iterator->right == NULL)
   {
     iterator->right = insert_node;
     is_insert = 1;
   }
+  else if(iterator->left == NULL)
+  {
+    iterator->left = insert_node;
+    is_insert = 1;
+  }
   else
-    iterator = iterator->left;
+    iterator = iterator->right;
   }
   return insert_node;
 }
@@ -59,6 +59,7 @@ void print_node(node_t *node)
 
   printf("%s\n", node->key);
   printf(node->data);
+  printf("\n");
 }
 
 void visit_tree(node_t *node, void (*fp)(node_t *root))
@@ -71,7 +72,7 @@ void visit_tree(node_t *node, void (*fp)(node_t *root))
   visit_tree(node->right, fp);
 }
 
-void destroy_tree(node_t *node, void (*fdestroy)(node_t *root))
+void destroy_tree(node_t *node, void (*fdestroy)())
 {
   if (node == NULL)
     return;
@@ -80,21 +81,4 @@ void destroy_tree(node_t *node, void (*fdestroy)(node_t *root))
   fdestroy(node);
   free(node);
 }
-/*  */
-/* void remove_static(node_t *node) */
-/* { */
-/*   free(node->key); */
-/*   free(node->data); */
-/* } */
-/*  */
-/*  */
-/* int main() */
-/* { */
-/*   node_t * root; */
-/*   root = insert(NULL, "hello", "world"); */
-/*   destroy_tree(root, remove_static); */
-/*   print_node(root); */
-/*   //insert(root, "world", "hello"); */
-/*   //visit_tree(root, print_node); */
-/* } */
-/*  */
+
