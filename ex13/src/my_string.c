@@ -26,6 +26,22 @@ stream_t *string_create(char *str)
 
 void string_append(stream_t *ptr, char * str)
 {
-  if( ptr )
-    return;
+  if (ptr == NULL)
+    ptr = string_create(str);
+  else
+  {
+    int str_size = strlen(str);
+    ptr->str = realloc(ptr->str, ptr->size + str_size);
+    for(int i = 0; i < str_size; ++i)
+      ptr->str[ptr->size + i] = str[i];
+    ptr->size +=str_size;
+    ptr->str[ptr->size] = '\0';
+  }
+}
+
+void string_destroy(stream_t *str)
+{
+  free(str->str);
+  free(str);
+  free(&str);
 }
