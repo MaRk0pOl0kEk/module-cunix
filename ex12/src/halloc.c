@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include "alloc_block.h"
+#include <unistd.h>
 
 alloc_b *head = NULL;
 
