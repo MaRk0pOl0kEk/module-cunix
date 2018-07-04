@@ -1,5 +1,6 @@
-struct alloc_block
+typedef struct alloc_block
 {
   size_t size;
-  struct alloc_block *next;
-};
+  void *next;
+  int free;
+} alloc_b;
